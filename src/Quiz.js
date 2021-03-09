@@ -8,27 +8,18 @@ export default function Quiz() {
     const { id } = useParams();
     //console.log(id);
 
-    /*const questions = [
-        {
-            questionText: 'What is the capital of France?',
-            answerOptions: [
-                { answerText: 'New York', isCorrect: false },
-                { answerText: 'London', isCorrect: false },
-                { answerText: 'Paris', isCorrect: true },
-                { answerText: 'Dublin', isCorrect: false },
-            ]
-        }
-    ];*/
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
     const [startQuiz, setStartQuiz] = useState(true);
+    const [isCorrect,setIscorrect] = useState(false);
     
     const url = "https://credifybe.tk/getquestions";
 
     //console.log(id);
     const [questions, setQuestions] = useState([]);
+    const [singleanswer,setsingleanswer]=useState('');
 
 
     useEffect(() => {
@@ -50,28 +41,42 @@ export default function Quiz() {
 
 
     
+    const handleAnswerOptionClick = (value) => {
+    
+            setIscorrect(value);
+    }
 
 
+     const handlenext = () => {
 
-    const handleAnswerOptionClick = (isCorrect) => {
-        if (isCorrect) {
-            setScore(score + 1);
+         if (questions[currentQuestion].question_type == 'single' )
+        {
+          if(questions[currentQuestion].choices===singleanswer){
+              setScore(score + 1)
+              console.log('true works')
+          }
+        }
+         if (questions[currentQuestion].question_type === 'multiple')
+        {
+            console.log(isCorrect);
+
+             if (isCorrect) {
+                 setScore(score + 1);
+             }
         }
 
-        const nextQuestion = currentQuestion + 1;
-        const prevQuestion = currentQuestion - 1;
-        if(prevQuestion < 0){
-            setCurrentQuestion(0);
-        }
-        if (nextQuestion < questions.length) {
-            setCurrentQuestion(nextQuestion);
-        }
-        else {
-        setShowScore(true);
-        }
+         const nextQuestion = currentQuestion + 1;
 
-    };
-    return (
+         if (nextQuestion < questions.length) {
+             setCurrentQuestion(nextQuestion);
+         }
+         else {
+             setShowScore(true);
+         }
+     }  
+     
+     
+   return (
         <div className='app'>
             {
                 startQuiz ? (<div className='instruction-section'>
@@ -101,9 +106,28 @@ export default function Quiz() {
                             <div className='question-text'>{questions[currentQuestion].text}</div>
                         </div>
                         <div className='answer-section'>
-                            {questions[currentQuestion].choices.map((answerOption) => (
-                                <button onClick={() => handleAnswerOptionClick(answerOption.is_correct)}>{answerOption.text}</button>
-                            ))}
+                        {(questions[currentQuestion].question_type === 'single') ? (
+                            <input type="text" 
+                            required
+                            onChange = {(e)=> setsingleanswer(e.target.value)}
+                            value={singleanswer}
+                            />
+
+                        ) : ( 
+                                questions[currentQuestion].choices.map((option,index) => (
+                                 <button class = {`option option-${index}`}
+                                        onClick={handleAnswerOptionClick(questions[currentQuestion].choices[index].is_correct)}
+                                 >{option.text}</button>
+                            ))
+                            ) 
+
+                               }  
+                             <div>
+                                <button 
+                                onClick={() => handlenext()}
+                                >{(currentQuestion+1==questions.length) ? "finish" : "next"}</button>
+                            </div>  
+                            
                         </div>
                     </>)
                 ))}
