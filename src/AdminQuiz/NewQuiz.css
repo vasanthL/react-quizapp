@@ -1,0 +1,69 @@
+.set-quiz-form{
+	margin-top: 150px;
+	margin-bottom:150px;
+}
+
+.method-box{
+	border:1px solid lightblue;
+	padding:10px;
+	margin-top: -40px;
+	align-items: center;
+	text-align: center;
+	border-radius: 6px;
+}
+
+.methodh2{
+	font-weight: 100;
+	color:slategray;
+	background-color:dodgerblue;
+	color:white;
+	font-family: cursive;
+	border-radius: 6px;
+}
+
+ .form-inputs{
+	width:480px;
+	height:38px;
+	margin:4px auto 20px auto;
+	padding: 6px 14px;
+	outline: none;
+	border: 1px solid #DDDDDD;
+	border-radius:5px;
+  }
+
+textarea{
+	width:480px;
+	height:80px;
+	margin:4px auto 20px auto;
+	padding: 6px 14px;
+	outline: none;
+	border: 1px solid #DDDDDD;
+	border-radius:5px;
+  }
+.h1addquiz{
+	font-size: 30px;
+	font-weight: 500;
+}
+  
+.form-submit-button, .next-question-set, .finishquestionset{
+	transition: all 0.5s ease;
+	background-color:#1983FF;
+	color:#fff;
+	border:1px solid #1983FF;
+	border-radius:5px;
+	font-size:14px;
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:4px;
+	padding-bottom:4px;
+	height: 35px;
+	
+  }
+  .form-submit-button:hover, .next-question-set:hover, .finishquestionset:hover{
+	background-color:#fff;
+	color:#1983FF;
+  }
+  .form-submit-button:focus, .next-question-set:focus, .finishquestionset:focus{
+	 outline: none;
+  } 
+
